@@ -8,20 +8,17 @@ async function main() {
   await wallet.deployed();
   console.log("Wallet deployed to:", wallet.address);
 
-  const Mocha = await hre.ethers.getContractFactory("Mocha");
-  const mocha = await Mocha.deploy();
-  await mocha.deployed();
-  console.log("Mocha deployed to: ", mocha.address);
+  const Jnxy = await hre.ethers.getContractFactory("JNXY");
+  const jnxy = await Jnxy.deploy();
+  await jnxy.deployed();
+  console.log("JNXY token deployed to: ", jnxy.address);
 
-  await wallet.addToken(
-    ethers.utils.formatBytes32String("MOCHA"),
-    mocha.address
-  );
-  await mocha.approve(wallet.address, 500);
-  await wallet.deposit(400, ethers.utils.formatBytes32String("MOCHA"));
+  await wallet.addToken(ethers.utils.formatBytes32String("JNXY"), jnxy.address);
+  await jnxy.approve(wallet.address, 500);
+  await wallet.deposit(400, ethers.utils.formatBytes32String("JNXY"));
   let balance = await wallet.balances(
     owner.address,
-    ethers.utils.formatBytes32String("MOCHA")
+    ethers.utils.formatBytes32String("JNXY")
   );
   console.log(new ethers.BigNumber.from(balance));
 }
